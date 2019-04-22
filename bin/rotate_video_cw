@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Rotates the image by 90 degrees and optionally flips it.
+# For values between 4−7 rotation is only done if the movie geometry is
+# portrait and not landscape.
+# 
+# 0: Rotate by 90 degrees clockwise and flip (default).
+# 1: Rotate by 90 degrees clockwise.
+# 2: Rotate by 90 degrees counterclockwise.
+# 3: Rotate by 90 degrees counterclockwise and flip.
+
+ROTATE_TYPE=1
+
+while [ "$1" -a -f "$1" ]; do
+	if [ ! -d OUTPUT ]; then
+		mkdir OUTPUT
+	fi
+	VIDEO_FILE=$1
+	mencoder -oac copy -ovc lavc -vf rotate=$ROTATE_TYPE -o "OUTPUT/$VIDEO_FILE" "$VIDEO_FILE"
+	shift
+done
+
