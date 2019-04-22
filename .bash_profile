@@ -26,7 +26,7 @@ function parse_git_branch {
 # Set prompt
 export PS1='\[\e[7m\]\u@\h \w $(parse_git_branch) $\[\e[0m\] '
 
-export EDITOR=/usr/bin/nvim
+export EDITOR=/usr/local/bin/nvim
 export LSCOLORS=Exfxcxdxbxegedabagacad
 
 export BASE16_THEME=base16-gruvbox-dark-hard.sh
