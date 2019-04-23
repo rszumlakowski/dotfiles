@@ -12,6 +12,8 @@ Other things to hook up:
 
 ## TODO
 
+- Add .vim directory
+- Add instructions for installing colour scheme
 - Add old Vim configuration settings to Neovim's configuration.
 - See if you can reconcile both Neovim and Vim configuration files into one.
 - Find some more files to add like:
