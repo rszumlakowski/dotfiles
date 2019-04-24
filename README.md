@@ -1,7 +1,7 @@
 # Rob Szumlakowski's dotfiles configuration
 
-Clone into your ~ directory.  Files should be in place.  There is a .gitignore
-file to ignore all the other things in your home directory.
+Clone into your some directory.  Use the `install.sh` script to hook
+up the contents of this repository as symbolic links.
 
 Other things to hook up:
 
@@ -12,7 +12,6 @@ Other things to hook up:
 
 ## TODO
 
-- Add .vim directory
 - Add instructions for installing colour scheme
 - Add old Vim configuration settings to Neovim's configuration.
 - See if you can reconcile both Neovim and Vim configuration files into one.
