@@ -13,7 +13,7 @@ alias sf='fasd -sif'     # interactive file selection
 alias z='fasd_cd -d'     # cd, same functionality as j in autojump
 alias zz='fasd_cd -d -i' # cd with interactive selection
 
-export PATH=~/bin:/usr/local/git/bin:/usr/local/mysql/bin:$PATH
+export PATH=~/bin:$PATH
 
 function parse_git_dirty {
   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working tree clean" ]] && echo "*"
@@ -55,3 +55,16 @@ fix_ssh() {
 eval "$(fasd --init auto)"
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+eval "$(rbenv init -)"
+export RBENV_VERSION=2.7.1
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+[ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
+
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
+
+# Use `bat` as the pager for `man`
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
