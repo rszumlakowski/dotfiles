@@ -2,6 +2,7 @@ alias ls='ls -G'
 alias gll='git log --oneline --graph --decorate'
 alias gss='git status -s'
 alias lprs='lpass login --trust rszumlakowski@pivotal.io'
+alias e='exa --icons --long --git'
 alias a='fasd -a'        # any
 alias s='fasd -si'       # show / search / select
 alias d='fasd -d'        # directory
@@ -67,4 +68,5 @@ export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 
 # Use `bat` as the pager for `man`
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
 
