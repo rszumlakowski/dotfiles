@@ -10,6 +10,19 @@ Other things to hook up:
     ln -s ~/.vim/init.vim ~/.config/nvim/init.vim
     brew install fasd
 
+Other steps:
+
+1. If using iTerm and want the custom characters from `exa` and other similar
+   tools to render correctly in your terminal then follow the following steps:
+
+  - install the patched font:
+
+    brew tap homebrew/cask-fonts
+    brew install --cask font-hack-nerd-font
+
+  - in your iTerm settings, change Profiles -> Text -> Non-ASCII Font to
+    "Hack Nerd Font"
+
 ## TODO
 
 - Add instructions for installing colour scheme

@@ -43,8 +43,3 @@ install() {
 
 install "bash_profile" "$HOME/.bash_profile"
 install "tmux.conf" "$HOME/.tmux.conf"
-install "bin/imgcat" "$HOME/bin/imgcat"
-install "bin/imgls" "$HOME/bin/imgls"
-install "bin/rotate_video_ccw" "$HOME/bin/rotate_video_ccw"
-install "bin/rotate_video_cw" "$HOME/bin/rotate_video_cw"
-install "bin/Mount Network Drives.app" "$HOME/bin/Mount Network Drives.app"
