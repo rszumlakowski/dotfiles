@@ -33,12 +33,6 @@ export LSCOLORS=Exfxcxdxbxegedabagacad
 export BASE16_THEME=base16-gruvbox-dark-hard.sh
 source "${HOME}/.base16_theme"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/rob/work/google-cloud-sdk/path.bash.inc' ]; then source '/Users/rob/work/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/rob/work/google-cloud-sdk/completion.bash.inc' ]; then source '/Users/rob/work/google-cloud-sdk/completion.bash.inc'; fi
-
 fix_ssh() {
   export MY_SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock.local
   if [[ -L $MY_SSH_AUTH_SOCK ]]; then
@@ -57,16 +51,15 @@ eval "$(fasd --init auto)"
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
-eval "$(rbenv init -)"
-export RBENV_VERSION=2.7.1
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-[ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
 
 export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 
 # Use `bat` as the pager for `man`
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/rob/workspace/google-cloud-sdk/path.bash.inc' ]; then . '/Users/rob/workspace/google-cloud-sdk/path.bash.inc'; fi
 
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/rob/workspace/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/rob/workspace/google-cloud-sdk/completion.bash.inc'; fi
