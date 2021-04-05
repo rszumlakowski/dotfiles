@@ -15,13 +15,18 @@ Other steps:
 1. If using iTerm and want the custom characters from `exa` and other similar
    tools to render correctly in your terminal then follow the following steps:
 
-  - install the patched font:
+ - install the patched font:
 
     brew tap homebrew/cask-fonts
     brew install --cask font-hack-nerd-font
 
-  - in your iTerm settings, change Profiles -> Text -> Non-ASCII Font to
-    "Hack Nerd Font"
+ - in your iTerm settings, change Profiles -> Text -> Non-ASCII Font to
+   "Hack Nerd Font"
+
+1. Other iTerm settings to change:
+
+ - iTerm -> Preferences -> General -> Selection -> check Applications May
+   Access System Clipboard.
 
 ## TODO
 
