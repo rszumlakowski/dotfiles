@@ -23,6 +23,10 @@ Other steps:
  - in your iTerm settings, change Profiles -> Text -> Non-ASCII Font to
    "Hack Nerd Font"
 
+ - download and install https://github.com/arl/gitmux
+
+     go get -u github.com/arl/gitmux
+
 1. Other iTerm settings to change:
 
  - iTerm -> Preferences -> General -> Selection -> check Applications May

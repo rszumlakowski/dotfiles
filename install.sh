@@ -43,3 +43,4 @@ install() {
 
 install "bash_profile" "$HOME/.bash_profile"
 install "tmux.conf" "$HOME/.tmux.conf"
+install "gitmux.conf" "$HOME/.gitmux.conf"
