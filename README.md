@@ -15,13 +15,23 @@ Other steps:
 1. If using iTerm and want the custom characters from `exa` and other similar
    tools to render correctly in your terminal then follow the following steps:
 
+ - install the Powerline 'Hack' font
+
+    git clone https://github.com/powerline/fonts.git ~/workspace/powerline_fonts
+    cd ~/workspace/powerline_fonts
+    open hack
+
+   Then click on the four TTF files in Finder and click "Install Font".
+   Then, in your iTerm settings change Profiles -> Text -> Font to "Hack",
+   Regular, 14 point.
+
  - install the patched font:
 
     brew tap homebrew/cask-fonts
     brew install --cask font-hack-nerd-font
 
- - in your iTerm settings, change Profiles -> Text -> Non-ASCII Font to
-   "Hack Nerd Font"
+   In your iTerm settings, change Profiles -> Text -> Use Different Font for
+   Non-ASCII text and -> Non-ASCII Font to "Hack Nerd Font".
 
  - download and install https://github.com/arl/gitmux
 
@@ -35,8 +45,6 @@ Other steps:
 ## TODO
 
 - Add instructions for installing colour scheme
-- Add old Vim configuration settings to Neovim's configuration.
-- See if you can reconcile both Neovim and Vim configuration files into one.
 - Find some more files to add like:
   + ssh configuration (but not key)
   + .git config
