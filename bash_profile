@@ -58,12 +58,10 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
-export PATH="$GOBIN:$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
-export PATH="/usr/local/sbin:$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/workspace/vsphere_kubectl:$GOBIN:$HOME/.local/bin:$HOME/.cargo/bin:$PATH:${HOME}/.krew/bin"
 
 # Use `bat` as the pager for `man`
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/rob/workspace/google-cloud-sdk/path.bash.inc' ]; then . '/Users/rob/workspace/google-cloud-sdk/path.bash.inc'; fi
