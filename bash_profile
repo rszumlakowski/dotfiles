@@ -30,6 +30,8 @@ export PS1='\[\e[7m\]\u@\h \w $(parse_git_branch) $\[\e[0m\] '
 
 export EDITOR=/usr/local/bin/nvim
 export LSCOLORS=Exfxcxdxbxegedabagacad
+export VIFM="$HOME/.config/vifm"
+export HISTCONTROL=ignoreboth
 
 export BASE16_THEME=base16-gruvbox-dark-hard.sh
 source "${HOME}/.base16_theme"
@@ -57,6 +59,7 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
+export PATH="/usr/local/sbin:$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 
 # Use `bat` as the pager for `man`
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
