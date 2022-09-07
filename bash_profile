@@ -63,7 +63,7 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
-export PATH="$GOBIN:$HOME/.local/bin:$HOME/.cargo/bin:$PATH:${HOME}/.krew/bin"
+export PATH="$HOME/workspace/vsphere_kubectl:$GOBIN:$HOME/.local/bin:$PATH:${HOME}/.krew/bin"
 
 # Use `bat` as the pager for `man`
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
