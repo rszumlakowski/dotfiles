@@ -1,20 +1,9 @@
 alias ls='ls -G'
 alias gll='git log --oneline --graph --decorate'
 alias gss='git status -s'
-alias lprs='lpass login --trust rszumlakowski@pivotal.io'
 alias e='exa --icons --long --git'
-alias a='fasd -a'        # any
-alias s='fasd -si'       # show / search / select
-alias d='fasd -d'        # directory
-alias f='fasd -f'        # file
-alias i='fasd -f i'      # file with interactive selection
-alias j='fasd_cd -d'     # cd, same functionality as j in autojump
-alias sd='fasd -sid'     # interactive directory selection
-alias sf='fasd -sif'     # interactive file selection
-alias z='fasd_cd -d'     # cd, same functionality as j in autojump
-alias zz='fasd_cd -d -i' # cd with interactive selection
 alias k='kubectl'
-
+ 
 export PATH=~/bin:$PATH
 
 function parse_git_dirty {
@@ -31,6 +20,14 @@ tman() {
 
 thelp() {
     tmux split-window -h -p 40 "$* --help | bat --plain --language man --paging always"
+}
+
+kv() {
+  kubectl get $* --output yaml | nvim - "+set ft=yaml"
+}
+
+ks() {
+  kubectl get secret $* --output yaml | ksd | bat -pl yaml
 }
 
 # Set prompt
@@ -63,7 +60,7 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
-export PATH="$HOME/workspace/vsphere_kubectl:$GOBIN:$HOME/.local/bin:$PATH:${HOME}/.krew/bin"
+export PATH="$GOBIN:$HOME/.local/bin:$PATH:${HOME}/.krew/bin"
 
 # Use `bat` as the pager for `man`
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -75,10 +72,11 @@ if [ -f '/Users/rob/workspace/gcloud/google-cloud-sdk/path.bash.inc' ]; then . '
 if [ -f '/Users/rob/workspace/gcloud/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/rob/workspace/gcloud/google-cloud-sdk/completion.bash.inc'; fi
 
 # Bring on the completion
-[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
 export PATH="/usr/local/opt/openssl@3/bin:$PATH"
 
-
+# broot as a shell function
+source "$HOME/.config/broot/launcher/bash/br"

@@ -8,7 +8,6 @@ Other things to hook up:
     git clone git@github.com:rszumlakowski/vimfiles ~/.vim
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     ln -s ~/.vim/init.vim ~/.config/nvim/init.vim
-    brew install fasd
 
 Other steps:
 
