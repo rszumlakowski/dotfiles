@@ -38,8 +38,12 @@ export LSCOLORS=Exfxcxdxbxegedabagacad
 export VIFM="$HOME/.config/vifm"
 export HISTCONTROL=ignoreboth
 
-export BASE16_THEME=base16-gruvbox-dark-hard.sh
-source "${HOME}/.base16_theme"
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell"
+export BASE16_DEFAULT_THEME=decaf
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+       source "$BASE16_SHELL/profile_helper.sh"
 
 fix_ssh() {
   export MY_SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock.local
@@ -63,7 +67,8 @@ export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$HOME/.local/bin:$PATH:${HOME}/.krew/bin"
 
 # Use `bat` as the pager for `man`
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export BAT_THEME="Dracula"
+export MANPAGER="sh -c 'col -bx | bat -pl man'"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/rob/workspace/gcloud/google-cloud-sdk/path.bash.inc' ]; then . '/Users/rob/workspace/gcloud/google-cloud-sdk/path.bash.inc'; fi
