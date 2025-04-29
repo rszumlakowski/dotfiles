@@ -11,7 +11,10 @@ function parse_git_dirty {
 }
 
 function parse_git_branch {
-    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
+  local BRANCH=$(git branch --no-color 2> /dev/null)
+  if [[ -n $BRANCH ]]; then
+    echo "$BRANCH" | sed -e '/^[^*]/d' -e "s/* \(.*\)/ [\1$(parse_git_dirty)]/"
+  fi
 }
 
 tman() {
@@ -26,17 +29,30 @@ kv() {
   kubectl get $* --output yaml | nvim - "+set ft=yaml"
 }
 
+kst() {
+  kubectl get $* --output yaml | yq .status
+}
+
 ks() {
   kubectl get secret $* --output yaml | ksd | bat -pl yaml
 }
 
+kl() {
+  kubectl logs $* --all-containers=true | lnav
+}
+
+klever() {
+  kubectl --kubeconfig "$LEVER_CONFIG" $*
+}
+
 # Set prompt
-export PS1='\[\e[7m\]\w $(parse_git_branch) \$\[\e[0m\] '
+export PS1='\[\e[7m\]\w$(parse_git_branch)`if [ -n "$(jobs -p)" ]; then echo " (\j)"; fi` \$\[\e[0m\] '
 
 export EDITOR=/usr/local/bin/nvim
 export LSCOLORS=Exfxcxdxbxegedabagacad
-export VIFM="$HOME/.config/vifm"
 export HISTCONTROL=ignoreboth
+export LEVER_CONFIG="$HOME/.kube/tanzu-build-basic.kubeconfig"
+export GH_HOST="github.gwd.broadcom.net"
 
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell"
@@ -70,18 +86,33 @@ export PATH="$GOBIN:$HOME/.local/bin:$PATH:${HOME}/.krew/bin"
 export BAT_THEME="Dracula"
 export MANPAGER="sh -c 'col -bx | bat -pl man'"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/rob/workspace/gcloud/google-cloud-sdk/path.bash.inc' ]; then . '/Users/rob/workspace/gcloud/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/rob/workspace/gcloud/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/rob/workspace/gcloud/google-cloud-sdk/completion.bash.inc'; fi
-
 # Bring on the completion
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
 export PATH="/usr/local/opt/openssl@3/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
-# broot as a shell function
-source "$HOME/.config/broot/launcher/bash/br"
+lever_logs() {
+  #
+  # Show the logs of a Request
+  #
+  # Usage:
+  #
+  #   lever_logs myrequest
+  #
+  local BUILD_ID="$(kubectl --kubeconfig "$LEVER_CONFIG" get request "${1:?}" --template="{{.metadata.uid}}")"
+  stern \
+    --kubeconfig "$HOME/.kube/lever.kube.config" \
+    --since 24h \
+    --namespace default \
+    --selector lever.cc.build/build-id="$BUILD_ID"
+}
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/rszumlakowsk/workspace/gcloud/google-cloud-sdk/path.bash.inc' ]; then . '/Users/rszumlakowsk/workspace/gcloud/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/rszumlakowsk/workspace/gcloud/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/rszumlakowsk/workspace/gcloud/google-cloud-sdk/completion.bash.inc'; fi
