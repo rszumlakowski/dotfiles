@@ -3,14 +3,14 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 install() {
-  source=$1
-  target=$2
+  local source=$1
+  local target=$2
 
   if [[ -f $source ]]; then
     if [[ -f $target ]]; then
       if [[ ! -L $target ]]; then
         read -r -p "'$target' already exists.  Replace it with a symbolic link? (y/n) " choice
-        choice_first_char=${choice:0:1}
+        local choice_first_char=${choice:0:1}
         if [[ $choice_first_char = y || $choice_first_char = Y ]]; then
           echo "Deleting '$target'."
           rm "$target"
@@ -35,12 +35,13 @@ install() {
     return
   fi
 
-  source_with_dir="$SCRIPT_DIR/$source"
+  local source_with_dir="$SCRIPT_DIR/$source"
   echo "Creating symbolic link from '$source_with_dir' to '$target'."
 
   ln -s "$source_with_dir" "$target"
 }
 
-#install "bash_profile" "$HOME/.bash_profile"
 install "tmux.conf" "$HOME/.tmux.conf"
 install "gitmux.conf" "$HOME/.gitmux.conf"
+install "zshrc" "$HOME/.zshrc"
+install "zprofile" "$HOME/.zprofile"
