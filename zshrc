@@ -1,10 +1,9 @@
 alias ls='ls -G'
 alias gll='git log --oneline --graph --decorate'
 alias gss='git status -s'
-alias e='exa --icons --long --git'
 alias k='kubectl'
  
-export PATH=~/bin:$PATH
+export PATH=~/bin:~/workspace/mongodb-database-tools/bin:$PATH
 
 function parse_git_dirty {
   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working tree clean" ]] && echo "*"
@@ -30,21 +29,22 @@ ks() {
   kubectl get secret $* --output yaml | ksd | bat -pl yaml
 }
 
-# Set prompt
-setopt PROMPT_SUBST
-export PS1='%S%~$(parse_git_branch) %#% %s '
-#export PS1='\[\e[7m\]\w $(parse_git_branch) \$\[\e[0m\] '
-
 export EDITOR=/opt/homebrew/bin/nvim
 export LSCOLORS=Exfxcxdxbxegedabagacad
 export HISTCONTROL=ignoreboth
 
 # Base16 Shell
-BASE16_SHELL="$HOME/.config/colorschemes"
-export BASE16_DEFAULT_THEME=decaf
+BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-       source "$BASE16_SHELL/profile_helper.sh"
+        source "$BASE16_SHELL/profile_helper.sh"
+        
+base16_gruvbox-dark-medium
+
+# Set prompt
+setopt PROMPT_SUBST
+export PS1='%S%~$(parse_git_branch) %#% %s '
+#export PS1='\[\e[7m\]\w $(parse_git_branch) \$\[\e[0m\] '
 
 fix_ssh() {
   export MY_SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock.local
@@ -59,37 +59,37 @@ fix_ssh() {
   fi
 }
 
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-export GOPATH="$HOME/go"
-export GOBIN="$GOPATH/bin"
-export PATH="$GOBIN:$HOME/.local/bin:$PATH:${HOME}/.krew/bin"
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 
 # Use `bat` as the pager for `man`
 export BAT_THEME="Dracula"
 export MANPAGER="sh -c 'col -bx | bat -pl man'"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/rob/workspace/gcloud/google-cloud-sdk/path.bash.inc' ]; then . '/Users/rob/workspace/gcloud/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/rob/workspace/gcloud/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/rob/workspace/gcloud/google-cloud-sdk/completion.bash.inc'; fi
-
-# Bring on the completion
-[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
-
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
-export PATH="/usr/local/opt/openssl@3/bin:$PATH"
-
 setopt interactivecomments
-
-PATH=$(pyenv root)/shims:$PATH
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
 
 bindkey -e # Force emacs keybindings
 
+# Enable shell completion for commands installed by brew
+autoload -Uz compinit
+compinit
+
+# Enable syntax highlighting for the shell
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+
+# NOTE update this if installing a new OpenJDK
+export JAVA_HOME=/Users/rob/Library/Java/JavaVirtualMachines/openjdk-21.0.2/Contents/Home
+
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/rob/.docker/completions $fpath)
+autoload -Uz compinit
+(( ${+_comps[docker]} )) || compinit
+# End of Docker CLI completions
+
+fpath[1,0]=$HOME/.zsh/completion
+
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "/Users/rob"/.zsh/cache
+. /Users/rob/.asdf/asdf.sh
+. /Users/rob/.asdf/plugins/java/set-java-home.zsh

@@ -1,5 +1,6 @@
+# The following lines were added by Docker Desktop to add commands to your PATH.
+export PATH="$PATH:/Users/rob/.docker/bin"
+# End of Docker Desktop section.
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Added by `rbenv init` on Tue 29 Jul 2025 13:26:09 EDT
-eval "$(rbenv init - --no-rehash zsh)"
