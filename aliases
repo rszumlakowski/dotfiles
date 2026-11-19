@@ -1,0 +1,7 @@
+alias ls='ls -G'
+alias gll='git log --oneline --graph --decorate'
+alias gss='git status -s'
+alias k='kubectl'
+alias awslogin='aws sso login --profile mms-scratch'
+alias d='dirs -v'
+for index ({1..9}) alias "$index"="cd +${index}"; unset index

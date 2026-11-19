@@ -1,9 +1,3 @@
-alias ls='ls -G'
-alias gll='git log --oneline --graph --decorate'
-alias gss='git status -s'
-alias k='kubectl'
- 
-export PATH=~/bin:~/workspace/mongodb-database-tools/bin:$PATH
 
 function parse_git_dirty {
   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working tree clean" ]] && echo "*"
@@ -29,10 +23,6 @@ ks() {
   kubectl get secret $* --output yaml | ksd | bat -pl yaml
 }
 
-export EDITOR=/opt/homebrew/bin/nvim
-export LSCOLORS=Exfxcxdxbxegedabagacad
-export HISTCONTROL=ignoreboth
-
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
@@ -41,10 +31,11 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
         
 base16_gruvbox-dark-medium
 
+source $HOME/workspace/dotfiles/aliases
+
 # Set prompt
 setopt PROMPT_SUBST
 export PS1='%S%~$(parse_git_branch) %#% %s '
-#export PS1='\[\e[7m\]\w $(parse_git_branch) \$\[\e[0m\] '
 
 fix_ssh() {
   export MY_SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock.local
@@ -62,10 +53,6 @@ fix_ssh() {
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
 
-# Use `bat` as the pager for `man`
-export BAT_THEME="Dracula"
-export MANPAGER="sh -c 'col -bx | bat -pl man'"
-
 setopt interactivecomments
 
 bindkey -e # Force emacs keybindings
@@ -74,12 +61,12 @@ bindkey -e # Force emacs keybindings
 autoload -Uz compinit
 compinit
 
+setopt AUTO_PUSHD        # Push the current directory visited on the stack.
+setopt PUSHD_IGNORE_DUPS # Do not store duplicates in the stack.
+setopt PUSHD_SILENT      # Do not print the directory stack after pushd or popd.
+
 # Enable syntax highlighting for the shell
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-
-# NOTE update this if installing a new OpenJDK
-export JAVA_HOME=/Users/rob/Library/Java/JavaVirtualMachines/openjdk-21.0.2/Contents/Home
 
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/rob/.docker/completions $fpath)
